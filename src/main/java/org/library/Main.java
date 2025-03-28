@@ -1,14 +1,23 @@
 package org.library;
 
 /**
- * asdf
+ * You must document class
  */
 public class Main {
+
 	/**
-	 * asdfff
-	 * @param args asdf
+	 * You must document method
+	 *
+	 * @param aBoolean You must document parameters
+	 * @return You must document return value
 	 */
-	public static void main(String[] args) {
-		System.out.println("Hello, World!");
+	public Boolean method(Boolean aBoolean) {
+		if (aBoolean) {
+			System.out.println("Hello, World!");
+		} else {
+			System.out.println("Hello, World!2");
+		}
+
+		return aBoolean;
 	}
 }
