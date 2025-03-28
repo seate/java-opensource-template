@@ -1,1 +1,1 @@
-memberSearchIndex = [{"p":"org.library","c":"Main","l":"Main()","u":"%3Cinit%3E()"},{"p":"org.library","c":"Main","l":"test(Boolean)","u":"test(java.lang.Boolean)"}];updateSearchResults();
+memberSearchIndex = [{"p":"org.library","c":"Main","l":"Main()","u":"%3Cinit%3E()"},{"p":"org.library","c":"Main","l":"method(Boolean)","u":"method(java.lang.Boolean)"},{"p":"org.library","c":"PrTest","l":"pr()"},{"p":"org.library","c":"PrTest","l":"PrTest()","u":"%3Cinit%3E()"}];updateSearchResults();
