@@ -1,0 +1,5 @@
+jdk:
+    - temurin-17
+
+before_install:
+    - sdk install java

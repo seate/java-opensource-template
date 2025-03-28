@@ -1,0 +1,77 @@
+name: PR Test
+
+on:
+    pull_request_target:
+        branches:
+            - main
+            - develop
+        types:
+            - opened
+            - synchronize
+            - reopened
+
+jobs:
+    labeling:
+        runs-on: ubuntu-latest
+
+        permissions:
+            contents: read
+            pull-requests: write
+
+        steps:
+        - name: Check Labels
+          id: labeler
+          uses: jimschubert/labeler-action@v1 # This action references .github/labeler.yml file
+          with:
+            GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
+    CITest:
+        permissions:
+            pull-requests: write
+            checks: write
+            contents: read
+
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: Checkout code
+          uses: actions/checkout@v4.2.2
+
+        - name: Cache Gradle dependencies
+          uses: actions/cache @v4
+          with:
+            path: |
+                ~/.gradle/caches
+                ~/.gradle/wrapper
+            key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle/wrapper/gradle-wrapper.properties') }}
+            restore-keys: |
+                ${{ runner.os }}-gradle-  
+
+        - name: Set up JDK 17
+          uses: actions/setup-java@v4.7.0
+          with:
+              java-version: '17'
+              distribution: 'temurin'
+
+        - name: Grant execute permission for gradlew
+          run: chmod +x gradlew
+
+        - name: Test with Gradle
+          run: ./gradlew clean totalCITest
+
+    codecov_upload:
+        needs: CITest
+
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: Checkout code
+          uses: actions/checkout@v4.2.2
+
+        - name: Upload coverage reports to Codecov
+          uses: codecov/codecov-action@v5
+          with:
+            fail_ci_if_error: true
+            token: ${{ secrets.CODECOV_TOKEN }}
+            files: build/reports/jacoco/test/jacocoTestReport.xml
+            verbose: true

@@ -1,0 +1,26 @@
+enable:
+    issues: true
+    prs: true
+
+labels:
+    'fix':
+        include:
+            - '\b[fix]\b'
+    'bug':
+        include:
+            - '\b[fix]\b'
+    'test':
+        include:
+            - '\b[test]\b'
+    'feature':
+        include:
+            - '\b[feat]\b'
+    'documentation':
+        include:
+            - '\b[docs]\b'
+    'refactor':
+        include:
+            - '\b[refactor]\b'
+    'chore':
+        include:
+            - '\b[chore]\b'

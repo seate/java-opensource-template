@@ -1,0 +1,42 @@
+#!/bin/sh
+
+# Path to the commit message file
+MSG_FILE=$1
+
+# Read the commit message
+COMMIT_MSG=$(cat $MSG_FILE)
+
+
+# Define the conventional commit regex pattern
+CONVENTIONAL_COMMIT_PATTERN="^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test|merge|init)(\([a-z ]+\))?!?: .+$"
+
+# Check if the commit message matches the conventional commit pattern
+if ! echo "$COMMIT_MSG" | grep -Eq "$CONVENTIONAL_COMMIT_PATTERN"; then
+  echo "ERROR: Commit message does not follow the conventional commit format."
+  echo "Please see https://www.conventionalcommits.org/en/v1.0.0/ for more details."
+  exit 1
+fi
+
+# If the commit message starts with "merge", skip the other checks
+if echo "$COMMIT_MSG" | grep -Eq "^(init|merge)"; then
+  exit 0
+fi
+
+# Check if the subject line is longer than 50 characters
+SUBJECT_LINE=$(echo "$COMMIT_MSG" | head -n 1)
+if [ ${#SUBJECT_LINE} -gt 50 ]; then
+  echo "ERROR: The subject line of the commit message is longer than 50 characters."
+  exit 1
+fi
+
+# Check if there is a blank line between the subject and body
+if [ $(echo "$COMMIT_MSG" | sed -n '2p') ]; then
+  echo "ERROR: There should be a blank line between the subject and the body of the commit message."
+  exit 1
+fi
+
+# Check if any line in the body is longer than 72 characters
+if echo "$COMMIT_MSG" | tail -n +3 | grep -E '.{73,}'; then
+  echo "ERROR: Lines in the body of the commit message should not be longer than 72 characters."
+  exit 1
+fi
