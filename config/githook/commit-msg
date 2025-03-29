@@ -8,7 +8,7 @@ COMMIT_MSG=$(cat $MSG_FILE)
 
 
 # Define the conventional commit regex pattern
-CONVENTIONAL_COMMIT_PATTERN="^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test|merge|Merge|init)(\([a-z ]+\))?!?: .+$"
+CONVENTIONAL_COMMIT_PATTERN="^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test|merge|Merge|init)(\([a-z ]+\))?!?: .+$|^Merge branch .+$"
 
 # Check if the commit message matches the conventional commit pattern
 if ! echo "$COMMIT_MSG" | grep -Eq "$CONVENTIONAL_COMMIT_PATTERN"; then
