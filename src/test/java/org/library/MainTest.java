@@ -1,5 +1,6 @@
 package org.library;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -14,7 +15,7 @@ class MainTest {
 	void method1() {
 		Main tes = new Main();
 
-		tes.method(true);
-		tes.method(false);
+		Assertions.assertTrue(tes.method(false));
+		Assertions.assertFalse(tes.method(true));
 	}
 }

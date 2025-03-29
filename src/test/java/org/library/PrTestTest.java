@@ -1,5 +1,6 @@
 package org.library;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -13,6 +14,6 @@ class PrTestTest {
 	@Test
 	void pr() {
 		PrTest prTest = new PrTest();
-		prTest.pr();
+		Assertions.assertTrue(prTest.pr().contains("Hello, World!"));
 	}
 }
