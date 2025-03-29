@@ -7,8 +7,10 @@ public class PrTest {
 
 	/**
 	 * You must document method
+	 *
+	 * @return You must document return value
 	 */
-	public void pr() {
-		System.out.println("Hello, World!");
+	public String pr() {
+		return "Hello, World!";
 	}
 }
