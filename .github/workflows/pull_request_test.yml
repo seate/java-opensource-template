@@ -19,11 +19,11 @@ jobs:
             pull-requests: write
 
         steps:
-        - name: Check Labels
-          id: labeler
-          uses: jimschubert/labeler-action@v1 # This action references .github/labeler.yml file
-          with:
-            GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+            - name: Check Labels
+              id: labeler
+              uses: jimschubert/labeler-action@v1 # This action references .github/labeler.yml file
+              with:
+                  GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
     CITest:
         permissions:
@@ -34,20 +34,20 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-        - name: Checkout code
-          uses: actions/checkout@v4.2.2
+            - name: Checkout code
+              uses: actions/checkout@v4.2.2
 
-        - name: Set up JDK 17
-          uses: actions/setup-java@v4.7.0
-          with:
-              java-version: '17'
-              distribution: 'temurin'
+            - name: Set up JDK 17
+              uses: actions/setup-java@v4.7.0
+              with:
+                  java-version: '17'
+                  distribution: 'temurin'
 
-        - name: Grant execute permission for gradlew
-          run: chmod +x gradlew
+            - name: Grant execute permission for gradlew
+              run: chmod +x gradlew
 
-        - name: Test with Gradle
-          run: ./gradlew clean totalCITest
+            - name: Test with Gradle
+              run: ./gradlew clean totalCITest
 
 
     codeql:
