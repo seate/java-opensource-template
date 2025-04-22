@@ -3,12 +3,9 @@ name: PR Test
 on:
     pull_request_target:
         branches:
-            - main
-            - develop
+          [main, develop]
         types:
-            - opened
-            - synchronize
-            - reopened
+          [opened, synchronize, reopened]
 
 jobs:
     labeling:
@@ -62,16 +59,16 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            -   name: Checkout repository
-                uses: actions/checkout@v3
+            - name: Checkout repository
+              uses: actions/checkout@v3
 
-            -   name: Initialize CodeQL
-                uses: github/codeql-action/init@v3
-                with:
-                    languages: java
+            - name: Initialize CodeQL
+              uses: github/codeql-action/init@v3
+              with:
+                  languages: java
 
-            -   name: Autobuild
-                uses: github/codeql-action/autobuild@v3
+            - name: Autobuild
+              uses: github/codeql-action/autobuild@v3
 
-            -   name: Run CodeQL Analysis
-                uses: github/codeql-action/analyze@v3
+            - name: Run CodeQL Analysis
+              uses: github/codeql-action/analyze@v3
