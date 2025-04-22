@@ -11,6 +11,6 @@ public class PrTest {
 	 * @return You must document return value
 	 */
 	public String pr() {
-		return "Hello, World!";
+		return "Hello, World!2";
 	}
 }
