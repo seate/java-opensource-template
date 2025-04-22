@@ -68,8 +68,27 @@ jobs:
         - name: Test with Gradle
           run: ./gradlew clean totalCITest
 
-        - name: Build and analyze
-          run: ./gradlew build jacocoTestReport sonar --info
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+    codeql:
+        permissions:
+            actions: read            # default action permission
+            contents: read           # code checkout permission
+            security-events: write   # code scan permission
+
+        name: “Perform CodeQL Analysis”
+        runs-on: ubuntu-latest
+
+        steps:
+            -   name: Checkout repository
+                uses: actions/checkout@v3
+
+            -   name: Initialize CodeQL
+                uses: github/codeql-action/init@v3
+                with:
+                    languages: java
+
+            -   name: Autobuild
+                uses: github/codeql-action/autobuild@v3
+
+            -   name: Run CodeQL Analysis
+                uses: github/codeql-action/analyze@v3
