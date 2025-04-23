@@ -47,28 +47,17 @@ jobs:
               run: ./gradlew clean totalCITest
 
 
-    codeql:
-        depends-on: CITest
-
-        permissions:
-            actions: read            # default action permission
-            contents: read           # code checkout permission
-            security-events: write   # code scan permission
-
-        name: “Perform CodeQL Analysis”
+    checkstyle:
+        name: runner / checkstyle
         runs-on: ubuntu-latest
-
         steps:
-            - name: Checkout repository
-              uses: actions/checkout@v3
+            - name: Checkout code
+            - uses: actions/checkout@v4
 
-            - name: Initialize CodeQL
-              uses: github/codeql-action/init@v3
+            - name: Run checkstyle
+            - uses: dbelyaev/action-checkstyle@master
               with:
-                  languages: java
-
-            - name: Autobuild
-              uses: github/codeql-action/autobuild@v3
-
-            - name: Run CodeQL Analysis
-              uses: github/codeql-action/analyze@v3
+                  github_token: ${{ secrets.github_token }}
+                  reporter: github-pr-review
+                  fail_level: error
+                  checkstyle_config: ./config/checkstyle/naver-checkstyle-rules.xml
