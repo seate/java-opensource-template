@@ -17,5 +17,6 @@ class MainTest {
 
 		Assertions.assertTrue(tes.method(false));
 		Assertions.assertFalse(tes.method(true));
+		Assertions.assertFalse(tes.method(false) && tes.method(true));
 	}
 }
